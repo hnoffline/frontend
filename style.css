@@ -1,0 +1,21 @@
+html {
+  font-family: sans-serif;
+  font-size: 16px;
+  margin: 0.75rem;
+}
+
+.header {
+  background: #ff6600;
+}
+
+.comment {
+  margin: 1rem 0;
+}
+.comment p {
+  margin: 0.5rem 0;
+}
+
+.author {
+  font-size: 0.85rem;
+  color: gray;
+}
