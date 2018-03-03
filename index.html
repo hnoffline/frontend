@@ -27,7 +27,7 @@
     <div class="post">
       <div class="post-number"></div>
       <div class="post-content">
-        <a href="#" class="title" data-thread-id="{{id}}">
+        <a href="#" class="title" data-article-id="{{id}}">
           {{title}}
         </a>
         <div class='post-details'>{{author}} {{time}} | <a class='comments-count' href='#' data-thread-id="{{id}}">{{commentsCount}} comments</a></div>
@@ -41,7 +41,10 @@
 
   <script id="article-template" type="text/x-handlebars-template"> 
     <div id="article">
-      <h2 id="article-title">{{title}}</h2>
+      <header id="article-header">
+        <h2 id="article-title">{{title}}</h2>
+        <a href="#" id="read-link" data-thread-id="{{id}}">Read Comments</a>
+      </header>
       <div id="article-html">
         {{{articleHtml}}}
       </div>
@@ -56,7 +59,7 @@
     <div id="thread">
       <header id="thread-header">
         <h2 id="thread-title">{{title}}</h2>
-        <a href='#' id="read-article-link" data-article-id="{{id}}" >Read Cached Article</a>
+        <a href='#' id="read-link" data-article-id="{{id}}" >Read Cached Article</a>
       </header>
       <div id="item-{{id}}-kids">
       </div>

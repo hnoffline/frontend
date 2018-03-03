@@ -4,6 +4,7 @@ html {
 }
 
 body {
+  color: #333;
   background-color: #f2f3f5;
   counter-reset: post-number-counter;
   line-height: 1.15rem;
@@ -86,6 +87,27 @@ body {
 #thread {
   padding: 1rem;
 }
+#thread-title {
+  font-size: 1.5rem;
+  line-height: 1.25em;
+  font-weight: 700;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+#thread-header {
+  margin-bottom: 2rem;
+}
+
+
+#read-link {
+  background-color: #822D05;
+  text-decoration: none;
+  color: #FF8C09;
+  padding: 0.25rem 0.5rem;
+  border-radius: 1rem;
+  font-size: 0.85rem;
+}
 
 .comment {
   padding-left: 1rem;
@@ -118,9 +140,14 @@ h2#article-title {
   font-size: 1.5rem;
   line-height: 1.25em;
   margin-bottom: 1rem;
+  font-weight: 700;
+  color: #555;
 }
 #article-html p {
   margin-top: 1rem;
+}
+#article-header {
+  margin-bottom: 2rem;
 }
 
 
