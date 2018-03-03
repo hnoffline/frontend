@@ -5,6 +5,7 @@ var indexThreadTemplate = Handlebars.compile(document.getElementById("index-thre
 var articleTemplate = Handlebars.compile(document.getElementById("article-template").innerHTML);
 
 
+
 localStorage.clear()
 example.forEach(function(thread) {
   localStorage.setItem(thread.id, JSON.stringify(thread))
@@ -38,6 +39,8 @@ function clearContentDiv() {
 }
 
 
+
+
 document.addEventListener('click', function(e) {
   var threadId = e.target.getAttribute('data-thread-id')
   if (threadId) {
@@ -65,38 +68,3 @@ renderIndex()
 //   }
 // };
 // request.send();
-
-
-
-
-
-
-
-// FIRST VERSION
-
-// var commentTemplate = Handlebars.compile(document.getElementById("comment-template").innerHTML);
-// var commentsDiv = document.getElementById("comments");
-// var request = new XMLHttpRequest();
-// request.open('GET', 'http://hn.algolia.com/api/v1/items/16394604', true);
-// request.onload = function() {
-//   if (request.status >= 200 && request.status < 400) {
-//     var story = JSON.parse(request.responseText);
-//     render(story);
-//   }
-// };
-// request.send();
-
-// function render(story) {
-//   story.children.forEach(function(comment) {
-//     rendered = commentTemplate({text: comment.text, author: comment.author, time: comment.created_at});
-//     commentsDiv.insertAdjacentHTML('afterend', rendered);
-
-
-//     console.log(comment);
-//   })
-// }
-
-// --------------------
-
-
-
