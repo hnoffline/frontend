@@ -6,6 +6,7 @@ html {
 body {
   background-color: #f2f3f5;
   counter-reset: post-number-counter;
+  line-height: 1.15rem;
 }
 
 .container {
@@ -27,8 +28,8 @@ body {
 #content {
   box-sizing: border-box;
   background-color: white;
-  /* padding: 1rem; */
   margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 
@@ -55,6 +56,10 @@ body {
   color: #777;
   font-size: 0.85rem;
 }
+.post .post-details .comments-count {
+  color: #777;
+}
+
 .post .post-number:before {
   counter-increment: post-number-counter;
   content: counter(post-number-counter) ". ";
@@ -76,23 +81,40 @@ body {
 
 
 
+/* THREAD VIEW */
 
-.comment {
-  margin: 1rem 0;
-}
-.comment p {
-  margin: 0.5rem 0;
-}
 
-.author {
+.comment .comment-details {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: #777;
   font-size: 0.85rem;
-  color: gray;
+}
+.comment .comment-html {
+  font-size: 0.95rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #f2f3f5;
+}
+.comment .comment-html p {
+  margin-top: 0.5rem;
 }
 
+
+/* ARTICLE VIEW */
 
 #article {
   padding: 1rem;
 }
+h2#article-title {
+  font-size: 1.5rem;
+  line-height: 1.25em;
+  margin-bottom: 1rem;
+}
 #article-html p {
   margin-top: 1rem;
 }
+
+
+
+
+

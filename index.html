@@ -30,7 +30,7 @@
         <a href="#" class="title" data-thread-id="{{id}}">
           {{title}}
         </a>
-        <div class='post-details'>{{author}} {{time}}</div>
+        <div class='post-details'>{{author}} {{time}} | <a class='comments-count' href='#' data-thread-id="{{id}}">{{commentsCount}} comments</a></div>
       </div>
     </div>
   </script>
@@ -41,7 +41,7 @@
 
   <script id="article-template" type="text/x-handlebars-template"> 
     <div id="article">
-      <h2 id="article-title">
+      <h2 id="article-title">{{title}}</h2>
       <div id="article-html">
         {{{articleHtml}}}
       </div>
@@ -50,13 +50,31 @@
 
 
 
-  <!-- style="padding-left: {{padding}}px" -->
+
+
+
+  <script id="thread-template" type="text/x-handlebars-template"> 
+    <div id="thread">
+      <header id="thread-header">
+        <h2 id="thread-title">{{title}}</h2>
+        <a href='#' id="read-article-link" data-article-id="{{id}}" >Read Cached Article</a>
+      </header>
+      <div id="item-{{id}}-kids">
+      </div>
+    </div>
+  </script>
+
   <script id="comment-template" type="text/x-handlebars-template">
-    <div class="comment">
-      <div class='author'>{{author}} {{time}}</div>
+    <div class="comment" style="padding-left: 1rem">
+      <div class='comment-details'>{{author}} {{time}}</div>
       <a href="#" class="title" data-thread-id="{{id}}">
         {{title}}
       </a>
+      <div class='comment-html'>
+        {{{commentHtml}}}
+      </div>
+      <div id="item-{{id}}-kids">
+      </div>
     </div>
   </script>
 
