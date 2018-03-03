@@ -71,6 +71,10 @@ function renderArticle(threadId) {
 }
 
 
+// convert timestamp to hn style "x unit ago"
+function timeAgo(timestamp) {}
+
+
 
 document.addEventListener('click', function(e) {
   var threadId = e.target.getAttribute('data-thread-id')

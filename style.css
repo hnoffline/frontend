@@ -83,7 +83,16 @@ body {
 
 /* THREAD VIEW */
 
+#thread {
+  padding: 1rem;
+}
 
+.comment {
+  padding-left: 1rem;
+}
+.comment:first-child {
+  padding: 0;
+}
 .comment .comment-details {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
