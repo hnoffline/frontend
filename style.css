@@ -5,12 +5,12 @@ html {
 
 body {
   background-color: #f2f3f5;
+  counter-reset: post-number-counter;
 }
 
 .container {
   max-width: 40rem;
   margin: 0 auto;
-  padding: 0 1rem;
 }
 
 #header {
@@ -21,20 +21,61 @@ body {
 #header h1 {
   color: white;
   font-family: monospace;
+  cursor: pointer;
 }
 
 #content {
   box-sizing: border-box;
   background-color: white;
-  padding: 1rem;
+  /* padding: 1rem; */
   margin-top: 1rem;
 }
+
 
 
 #frontend-code-link, #backend-code-link {
   float: right;
   margin-left: 0.5rem;
 }
+
+
+
+
+.post {
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+  position: relative;
+}
+.post a.title {
+  color: #333;
+  text-decoration: none;
+}
+.post .post-details {
+  margin-top: 0.5rem;
+  color: #777;
+  font-size: 0.85rem;
+}
+.post .post-number:before {
+  counter-increment: post-number-counter;
+  content: counter(post-number-counter) ". ";
+  font-weight: 700;
+  color: #ccc;
+  position: absolute;
+  top: 50%;
+  width: 2rem;
+  text-align: center;
+  margin-top: -10px;
+  font-size: 1.25rem;
+}
+.post-content {
+  margin-left: 2.5rem;
+}
+
+
+
+
+
+
 
 .comment {
   margin: 1rem 0;
@@ -46,4 +87,12 @@ body {
 .author {
   font-size: 0.85rem;
   color: gray;
+}
+
+
+#article {
+  padding: 1rem;
+}
+#article-html p {
+  margin-top: 1rem;
 }

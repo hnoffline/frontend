@@ -1,7 +1,7 @@
 // Should be precompiled
 //https://stackoverflow.com/questions/19653030/only-allow-certain-domain-to-access-web-api
 
-var indexThreadTemplate = Handlebars.compile(document.getElementById("index-thread-template").innerHTML);
+var postTemplate = Handlebars.compile(document.getElementById("post-template").innerHTML);
 var articleTemplate = Handlebars.compile(document.getElementById("article-template").innerHTML);
 
 
@@ -20,7 +20,7 @@ function renderIndex() {
   Object.keys(localStorage).forEach(function (id) {
     thread = JSON.parse(localStorage.getItem(id))
     if (thread !== null) {
-      rendered = indexThreadTemplate({title: thread.title, author: thread.by, time: thread.time, id: thread.id});
+      rendered = postTemplate({title: thread.title, author: thread.by, time: thread.time, id: thread.id});
       contentDiv.insertAdjacentHTML('beforeend', rendered);
     }
   })

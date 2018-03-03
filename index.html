@@ -23,13 +23,26 @@
 
 
 
+  <script id="post-template" type="text/x-handlebars-template">
+    <div class="post">
+      <div class="post-number"></div>
+      <div class="post-content">
+        <a href="#" class="title" data-thread-id="{{id}}">
+          {{title}}
+        </a>
+        <div class='post-details'>{{author}} {{time}}</div>
+      </div>
+    </div>
+  </script>
 
 
 
 
 
-  <script id="article-template" type="text/x-handlebars-template"> <div class="article">
-      <div class="article-html">
+  <script id="article-template" type="text/x-handlebars-template"> 
+    <div id="article">
+      <h2 id="article-title">
+      <div id="article-html">
         {{{articleHtml}}}
       </div>
     </div>
@@ -38,7 +51,7 @@
 
 
   <!-- style="padding-left: {{padding}}px" -->
-  <script id="index-thread-template" type="text/x-handlebars-template">
+  <script id="comment-template" type="text/x-handlebars-template">
     <div class="comment">
       <div class='author'>{{author}} {{time}}</div>
       <a href="#" class="title" data-thread-id="{{id}}">
