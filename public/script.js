@@ -6,6 +6,8 @@
 //https://stackoverflow.com/questions/19653030/only-allow-certain-domain-to-access-web-api
 
 
+
+
 var contentDiv = document.getElementById('content');
 
 var templates = {
@@ -86,16 +88,44 @@ var helpers = {
 
 function setUpLinks() {
   document.addEventListener('click', function(e) {
+    if (e.target.id === 'site-title') {
+      e.preventDefault()
+      e.stopPropagation()
+      window.history.pushState({index: true}, 'root', '/')
+    }
+
     var threadId = e.target.getAttribute('data-thread-id')
     if (threadId) {
-      views.thread(threadId);
+      e.preventDefault()
+      e.stopPropagation()
+      views.thread(threadId)
+      window.history.pushState({threadId: threadId}, 'thread' + threadId, '?thread=' + threadId)
     }
 
     var articleId = e.target.getAttribute('data-article-id')
     if (articleId) {
+      e.preventDefault()
+      e.stopPropagation()
       views.article(articleId);
+      window.history.pushState({articleId: articleId}, 'article' + articleId, '?article=' + articleId)
     }
   })
+}
+
+window.onpopstate = function(event) {
+  console.log(event.state)
+
+  if (event.state.index) {
+    views.index()
+  }
+
+  if (event.state.articleId) {
+    views.article(event.state.articleId);
+  }
+
+  if (event.state.threadId) {
+    views.thread(event.state.threadId)
+  }
 }
 
 function setUpData(data) {
@@ -111,6 +141,8 @@ request.open('GET', 'https://api.hnoffline.com/top_stories', true);
 request.onload = function() {
   if (request.status >= 200 && request.status < 400) {
     var threads = JSON.parse(request.responseText);
+
+    // set index view function with this data already saved into it, so no need to save this into global variable
     threadOrder = threads.map(function(thread) {return thread.id})
     setUpLinks()
     setUpData(threads);
@@ -118,3 +150,5 @@ request.onload = function() {
   }
 };
 request.send();
+
+
