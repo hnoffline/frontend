@@ -18,7 +18,7 @@ var templates = {
 function view(v) { return function(threadId) { helpers.clearContentDiv(); v(threadId) } }
 var views = {
   index: view(function() {
-    Object.keys(localStorage).forEach(function (id) {
+    threadOrder.forEach(function (id) {
       thread = JSON.parse(localStorage.getItem(id))
       if (thread !== null) {
         rendered = templates.post({title: thread.title, author: thread.by, time: helpers.timeAgo(thread.time), id: thread.id, commentsCount: thread.descendants});
@@ -111,6 +111,7 @@ request.open('GET', 'https://api.hnoffline.com/top_stories', true);
 request.onload = function() {
   if (request.status >= 200 && request.status < 400) {
     var threads = JSON.parse(request.responseText);
+    threadOrder = threads.map(function(thread) {return thread.id})
     setUpLinks()
     setUpData(threads);
     views.index()
