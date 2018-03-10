@@ -1,50 +1,72 @@
+// pwa: https://labs.ft.com/2012/08/basic-offline-html5-web-app/
+//
+//
+//
 // Should be precompiled
 //https://stackoverflow.com/questions/19653030/only-allow-certain-domain-to-access-web-api
 
-var postTemplate = Handlebars.compile(document.getElementById("post-template").innerHTML);
-var articleTemplate = Handlebars.compile(document.getElementById("article-template").innerHTML);
-var threadTemplate = Handlebars.compile(document.getElementById("thread-template").innerHTML);
-var commentTemplate = Handlebars.compile(document.getElementById("comment-template").innerHTML);
+
+var contentDiv = document.getElementById('content');
+
+var templates = {
+  post: Handlebars.compile(document.getElementById("post-template").innerHTML),
+  article: Handlebars.compile(document.getElementById("article-template").innerHTML),
+  thread: Handlebars.compile(document.getElementById("thread-template").innerHTML),
+  comment: Handlebars.compile(document.getElementById("comment-template").innerHTML)
+}
 
 
+// function viewFunction(f) {
+//   return function asdf() {
+//     clearContentDiv();
+//     f();
+//   }
+// }
 
-localStorage.clear()
-example.forEach(function(thread) {
-  localStorage.setItem(thread.id, JSON.stringify(thread))
-})
 
+var views = {
+  index: function() {
+    clearContentDiv()
 
+    Object.keys(localStorage).forEach(function (id) {
+      thread = JSON.parse(localStorage.getItem(id))
+      if (thread !== null) {
+        rendered = templates.post({title: thread.title, author: thread.by, time: timeAgo(thread.time), id: thread.id, commentsCount: thread.descendants});
+        contentDiv.insertAdjacentHTML('beforeend', rendered);
+      }
+    })
+  },
+  thread: function(threadId) {
+    clearContentDiv()
 
-function renderIndex() {
-  clearContentDiv()
-
-  var contentDiv = document.getElementById('content');
-  Object.keys(localStorage).forEach(function (id) {
-    thread = JSON.parse(localStorage.getItem(id))
+    thread = JSON.parse(localStorage.getItem(threadId))
     if (thread !== null) {
-      rendered = postTemplate({title: thread.title, author: thread.by, time: timeAgo(thread.time), id: thread.id, commentsCount: thread.descendants});
+      rendered = templates.thread({title: thread.title, id: thread.id});
       contentDiv.insertAdjacentHTML('beforeend', rendered);
     }
-  })
-}
+    renderKids(thread)
+  },
+  article: function(threadId) {
+    clearContentDiv()
 
-
-function renderThread(threadId) {
-  clearContentDiv()
-  var contentDiv = document.getElementById('content');
-  thread = JSON.parse(localStorage.getItem(threadId))
-  if (thread !== null) {
-    rendered = threadTemplate({title: thread.title, id: thread.id});
-    contentDiv.insertAdjacentHTML('beforeend', rendered);
+    thread = JSON.parse(localStorage.getItem(threadId))
+    if (thread !== null) {
+      rendered = templates.article({title: thread.title, articleHtml: thread.summary, id: thread.id});
+      contentDiv.insertAdjacentHTML('beforeend', rendered);
+    }
   }
-  renderKids(thread)
 }
+
+
+
+
+
 
 
 function renderKids(item) {
   var parentDiv = document.getElementById('item-' + item.id + '-kids');
   item.kids.forEach(function(kid) {
-    rendered = commentTemplate({title: kid.title, commentHtml: kid.text, author: kid.by, time: timeAgo(kid.time), id: kid.id});
+    rendered = templates.comment({title: kid.title, commentHtml: kid.text, author: kid.by, time: timeAgo(kid.time), id: kid.id});
     parentDiv.insertAdjacentHTML('beforeend', rendered);
     if (kid.kids) {
       renderKids(kid)
@@ -62,22 +84,12 @@ function clearContentDiv() {
 
 
 
-function renderArticle(threadId) {
-  clearContentDiv()
-  var contentDiv = document.getElementById('content');
-  thread = JSON.parse(localStorage.getItem(threadId))
-  rendered = articleTemplate({title: thread.title, articleHtml: thread.summary, id: thread.id});
-  contentDiv.insertAdjacentHTML('beforeend', rendered);
-}
 
 
-// convert timestamp to hn style "x unit ago"
 function timeAgo(timestamp) {
-  console.log({
-    now: new Date().getTime(),
-    ts: timestamp
-  })
   var seconds = Math.floor((new Date().getTime() - timestamp * 1000) / 1000)
+
+
   var minutes = Math.floor(seconds / 60)
   var hours = Math.floor(minutes / 60)
   var days = Math.floor(hours / 24)
@@ -98,19 +110,29 @@ function timeAgo(timestamp) {
 
 
 
+
+
 document.addEventListener('click', function(e) {
   var threadId = e.target.getAttribute('data-thread-id')
   if (threadId) {
-    renderThread(threadId);
+    views.thread(threadId);
   }
 
   var articleId = e.target.getAttribute('data-article-id')
   if (articleId) {
-    renderArticle(articleId);
+    views.article(articleId);
   }
 })
 
-renderIndex()
+
+
+localStorage.clear()
+example.forEach(function(thread) {
+  localStorage.setItem(thread.id, JSON.stringify(thread))
+})
+
+
+views.index()
 
 
 
