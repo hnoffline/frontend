@@ -103,19 +103,9 @@ function setUpLinks() {
 }
 
 window.onpopstate = function(event) {
-  console.log(event.state)
-
-  if (event.state.index) {
-    views.index()
-  }
-
-  if (event.state.articleId) {
-    views.article(event.state.articleId);
-  }
-
-  if (event.state.threadId) {
-    views.thread(event.state.threadId)
-  }
+  if (event.state.index) { views.index() }
+  if (event.state.articleId) { views.article(event.state.articleId); }
+  if (event.state.threadId) { views.thread(event.state.threadId) }
 }
 
 function setUpData(data) {
@@ -124,7 +114,6 @@ function setUpData(data) {
     localStorage.setItem(thread.id, JSON.stringify(thread))
   })
 }
-
 
 var request = new XMLHttpRequest();
 request.open('GET', 'https://api.hnoffline.com/top_stories', true);
@@ -140,5 +129,3 @@ request.onload = function() {
   }
 };
 request.send();
-
-
