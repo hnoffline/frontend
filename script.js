@@ -15,136 +15,115 @@ var templates = {
   comment: Handlebars.compile(document.getElementById("comment-template").innerHTML)
 }
 
-
-// function viewFunction(f) {
-//   return function asdf() {
-//     clearContentDiv();
-//     f();
-//   }
-// }
-
-
+function view(v) { return function(threadId) { helpers.clearContentDiv(); v(threadId) } }
 var views = {
-  index: function() {
-    clearContentDiv()
-
+  index: view(function() {
     Object.keys(localStorage).forEach(function (id) {
       thread = JSON.parse(localStorage.getItem(id))
       if (thread !== null) {
-        rendered = templates.post({title: thread.title, author: thread.by, time: timeAgo(thread.time), id: thread.id, commentsCount: thread.descendants});
+        rendered = templates.post({title: thread.title, author: thread.by, time: helpers.timeAgo(thread.time), id: thread.id, commentsCount: thread.descendants});
         contentDiv.insertAdjacentHTML('beforeend', rendered);
       }
     })
-  },
-  thread: function(threadId) {
-    clearContentDiv()
+  }),
 
+  thread: view(function(threadId) {
     thread = JSON.parse(localStorage.getItem(threadId))
     if (thread !== null) {
       rendered = templates.thread({title: thread.title, id: thread.id});
       contentDiv.insertAdjacentHTML('beforeend', rendered);
     }
-    renderKids(thread)
-  },
-  article: function(threadId) {
-    clearContentDiv()
+    helpers.renderKids(thread)
+  }),
 
+  article: view(function(threadId) {
     thread = JSON.parse(localStorage.getItem(threadId))
     if (thread !== null) {
       rendered = templates.article({title: thread.title, articleHtml: thread.summary, id: thread.id});
       contentDiv.insertAdjacentHTML('beforeend', rendered);
     }
+  })
+}
+
+var helpers = {
+  clearContentDiv: function () {
+    var contentDiv = document.getElementById('content');
+    while (contentDiv.firstChild) {
+      contentDiv.removeChild(contentDiv.firstChild);
+    }
+  },
+  timeAgo: function(timestamp) {
+    var seconds = Math.floor((new Date().getTime() - timestamp * 1000) / 1000)
+    var minutes = Math.floor(seconds / 60)
+    var hours = Math.floor(minutes / 60)
+    var days = Math.floor(hours / 24)
+    var years = Math.floor(days / 365)
+
+    if (years) {
+      return years + " years ago"
+    } else if (days) {
+      return days + " days ago"
+    } else if (hours) {
+      return hours + " hours ago"
+    } else if (minutes) {
+      return minutes + " minutes ago"
+    } else if (seconds) {
+      return seconds + " seconds ago"
+    }
+  },
+  renderKids: function(item) {
+    var parentDiv = document.getElementById('item-' + item.id + '-kids');
+    item.kids.forEach(function(kid) {
+      rendered = templates.comment({title: kid.title, commentHtml: kid.text, author: kid.by, time: helpers.timeAgo(kid.time), id: kid.id});
+      parentDiv.insertAdjacentHTML('beforeend', rendered);
+      if (kid.kids) {
+        helpers.renderKids(kid)
+      }
+    })
   }
 }
 
 
+function setUpLinks() {
+  document.addEventListener('click', function(e) {
+    var threadId = e.target.getAttribute('data-thread-id')
+    if (threadId) {
+      views.thread(threadId);
+    }
 
-
-
-
-
-function renderKids(item) {
-  var parentDiv = document.getElementById('item-' + item.id + '-kids');
-  item.kids.forEach(function(kid) {
-    rendered = templates.comment({title: kid.title, commentHtml: kid.text, author: kid.by, time: timeAgo(kid.time), id: kid.id});
-    parentDiv.insertAdjacentHTML('beforeend', rendered);
-    if (kid.kids) {
-      renderKids(kid)
+    var articleId = e.target.getAttribute('data-article-id')
+    if (articleId) {
+      views.article(articleId);
     }
   })
 }
 
-
-function clearContentDiv() {
-  var contentDiv = document.getElementById('content');
-  while (contentDiv.firstChild) {
-    contentDiv.removeChild(contentDiv.firstChild);
-  }
+function setUpData(data) {
+  localStorage.clear()
+  data.forEach(function(thread) {
+    localStorage.setItem(thread.id, JSON.stringify(thread))
+  })
 }
 
 
+setUpLinks()
+// setUpData(example)
 
 
 
-function timeAgo(timestamp) {
-  var seconds = Math.floor((new Date().getTime() - timestamp * 1000) / 1000)
-
-
-  var minutes = Math.floor(seconds / 60)
-  var hours = Math.floor(minutes / 60)
-  var days = Math.floor(hours / 24)
-  var years = Math.floor(days / 365)
-
-  if (years) {
-    return years + " years ago"
-  } else if (days) {
-    return days + " days ago"
-  } else if (hours) {
-    return hours + " hours ago"
-  } else if (minutes) {
-    return minutes + " minutes ago"
-  } else if (seconds) {
-    return seconds + " seconds ago"
+var request = new XMLHttpRequest();
+request.open('GET', 'https://www.hnoffline.com/api/top_stories', true);
+request.onload = function() {
+  if (request.status >= 200 && request.status < 400) {
+    var threads = JSON.parse(request.responseText);
+    setUpData(threads);
+    views.index()
   }
-}
+};
+request.send();
 
 
 
 
 
-document.addEventListener('click', function(e) {
-  var threadId = e.target.getAttribute('data-thread-id')
-  if (threadId) {
-    views.thread(threadId);
-  }
 
-  var articleId = e.target.getAttribute('data-article-id')
-  if (articleId) {
-    views.article(articleId);
-  }
-})
-
-
-
-localStorage.clear()
-example.forEach(function(thread) {
-  localStorage.setItem(thread.id, JSON.stringify(thread))
-})
-
-
-views.index()
-
-
-
-
-// var request = new XMLHttpRequest();
-// request.open('GET', 'http://localhost:4000/top_stories', true);
-// request.onload = function() {
-//   if (request.status >= 200 && request.status < 400) {
-//     var threads = JSON.parse(request.responseText);
-//     console.log(threads[0])
-
-//     // render(story);
-//   }
-// };
-// request.send();
