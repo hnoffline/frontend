@@ -107,7 +107,7 @@ function setUpData(data) {
 
 
 var request = new XMLHttpRequest();
-request.open('GET', 'https://www.hnoffline.com/api/top_stories', true);
+request.open('GET', 'https://api.hnoffline.com/top_stories', true);
 request.onload = function() {
   if (request.status >= 200 && request.status < 400) {
     var threads = JSON.parse(request.responseText);
