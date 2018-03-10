@@ -106,24 +106,14 @@ function setUpData(data) {
 }
 
 
-setUpLinks()
-// setUpData(example)
-
-
-
 var request = new XMLHttpRequest();
 request.open('GET', 'https://www.hnoffline.com/api/top_stories', true);
 request.onload = function() {
   if (request.status >= 200 && request.status < 400) {
     var threads = JSON.parse(request.responseText);
+    setUpLinks()
     setUpData(threads);
     views.index()
   }
 };
 request.send();
-
-
-
-
-
-
