@@ -126,6 +126,7 @@ request.onload = function() {
     setUpLinks()
     setUpData(threads);
     views.index()
+    window.history.pushState({index: true}, 'root', '/')
   }
 };
 request.send();
