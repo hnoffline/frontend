@@ -1,13 +1,3 @@
-// pwa: https://labs.ft.com/2012/08/basic-offline-html5-web-app/
-//
-//
-//
-// Should be precompiled
-//https://stackoverflow.com/questions/19653030/only-allow-certain-domain-to-access-web-api
-
-
-
-
 var contentDiv = document.getElementById('content');
 
 var templates = {
