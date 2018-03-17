@@ -26,6 +26,11 @@ h1#site-title {
   margin-left: 1rem;
   display: inline-block;
 }
+#cached-at {
+  color: rgba(255,255,255,0.5);
+  font-size: 0.85rem;
+  margin-left: 0.5rem;
+}
 
 #content {
   box-sizing: border-box;
