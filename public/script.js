@@ -105,9 +105,9 @@ function setUpLinks() {
 }
 
 window.onpopstate = function(event) {
-  if (event.state.index) { views.index() }
-  if (event.state.articleId) { views.article(event.state.articleId); }
-  if (event.state.threadId) { views.thread(event.state.threadId) }
+  if (event.state.index) { console.log(event); views.index() }
+  if (event.state.articleId) { console.log(event); views.article(event.state.articleId) }
+  if (event.state.threadId) { console.log(event); views.thread(event.state.threadId) }
 }
 
 function setUpData(data) {
@@ -118,21 +118,36 @@ function setUpData(data) {
 }
 
 
+// add error handling for browsers without URLSearchParams, should default to index
+function route(searchParams) {
+  var urlSearchParams = new URLSearchParams(searchParams)
+  if (urlSearchParams.get("article")) {
+    var articleId = urlSearchParams.get("article")
+    views.article(articleId);
+    window.history.pushState({articleId: articleId}, 'article' + articleId, '?article=' + articleId)
+  } else if (urlSearchParams.get("thread")) {
+    var threadId = urlSearchParams.get("thread")
+    views.thread(threadId)
+    window.history.pushState({threadId: threadId}, 'thread' + threadId, '?thread=' + threadId)
+  } else {
+    views.index()
+    window.history.pushState({index: true}, 'root', '/')
+  }
+}
 
 
 var request = new XMLHttpRequest();
 request.open('GET', 'https://api.hnoffline.com/top_stories', true);
 request.onload = function() {
   if (request.status >= 200 && request.status < 400) {
-    var threads = JSON.parse(request.responseText);
+    var threads = JSON.parse(request.responseText)["threads"];
 
     // set index view function with this data already saved into it, so no need to save this into global variable
     // actually, this does have to be saved into localStorage, for if everything is loaded from cache due to a recent fetch from the server.
     threadOrder = threads.map(function(thread) {return thread.id})
     setUpLinks()
     setUpData(threads);
-    views.index()
-    window.history.pushState({index: true}, 'root', '/')
+    route(location.search);
   }
 };
 request.addEventListener("progress", function(e) {
