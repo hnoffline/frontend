@@ -191,6 +191,14 @@ h2#article-title {
   margin-top: 0.5rem;
   max-width: 100%;
 }
+#article-html ul {
+  margin-top: 0.5rem;
+}
+#article-html li {
+  margin-left: 1rem;
+  list-style: disc;
+  margin-top: 0.25rem;
+}
 #article-header {
   margin-bottom: 2rem;
 }
