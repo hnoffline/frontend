@@ -147,6 +147,10 @@ h1#site-title {
   font-family: monospace;
 }
 
+.comment-toggle:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
 .comment.kids-shown .comment-toggle::before {
   content: '[-]'
 }
