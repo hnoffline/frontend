@@ -76,7 +76,7 @@ var helpers = {
     })
   },
   renderCachedAt: function(timestamp) {
-    cachedAt.innerText = "Cached " + helpers.timeAgo(timestamp)
+    cachedAt.innerText = "cached " + helpers.timeAgo(timestamp)
   }
 }
 
