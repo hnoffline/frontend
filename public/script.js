@@ -1,5 +1,6 @@
 var contentDiv = document.getElementById('content');
 var progressBar = document.getElementById('progress-bar');
+var cachedAt = document.getElementById('cached-at');
 
 var templates = {
   post: Handlebars.compile(document.getElementById("post-template").innerHTML),
@@ -73,6 +74,9 @@ var helpers = {
         helpers.renderKids(kid)
       }
     })
+  },
+  renderCachedAt: function(timestamp) {
+    cachedAt.innerText = "cached " + helpers.timeAgo(timestamp)
   }
 }
 
@@ -140,13 +144,15 @@ var request = new XMLHttpRequest();
 request.open('GET', 'https://api.hnoffline.com/top_stories', true);
 request.onload = function() {
   if (request.status >= 200 && request.status < 400) {
-    var threads = JSON.parse(request.responseText)["threads"];
+    var response = JSON.parse(request.responseText)
+    var threads = response["threads"]
 
     // set index view function with this data already saved into it, so no need to save this into global variable
     // actually, this does have to be saved into localStorage, for if everything is loaded from cache due to a recent fetch from the server.
     threadOrder = threads.map(function(thread) {return thread.id})
     setUpLinks()
     setUpData(threads);
+    helpers.renderCachedAt(response["parsed_at"])
     route(location.search);
   }
 };
