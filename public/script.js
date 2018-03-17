@@ -76,6 +76,7 @@ var helpers = {
 }
 
 
+// these should be generated from a single function
 function setUpLinks() {
   document.addEventListener('click', function(e) {
     if (e.target.id === 'site-title') {
@@ -115,6 +116,9 @@ function setUpData(data) {
   })
 }
 
+
+
+
 var request = new XMLHttpRequest();
 request.open('GET', 'https://api.hnoffline.com/top_stories', true);
 request.onload = function() {
@@ -122,6 +126,7 @@ request.onload = function() {
     var threads = JSON.parse(request.responseText);
 
     // set index view function with this data already saved into it, so no need to save this into global variable
+    // actually, this does have to be saved into localStorage, for if everything is loaded from cache due to a recent fetch from the server.
     threadOrder = threads.map(function(thread) {return thread.id})
     setUpLinks()
     setUpData(threads);
@@ -130,3 +135,7 @@ request.onload = function() {
   }
 };
 request.send();
+
+
+
+
