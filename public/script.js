@@ -109,9 +109,13 @@ function setUpLinks() {
 }
 
 window.onpopstate = function(event) {
-  if (event.state.index) { console.log(event); views.index() }
-  if (event.state.articleId) { console.log(event); views.article(event.state.articleId) }
-  if (event.state.threadId) { console.log(event); views.thread(event.state.threadId) }
+  if (event.state) {
+    if (event.state.index) { views.index() }
+    if (event.state.articleId) { views.article(event.state.articleId) }
+    if (event.state.threadId) { views.thread(event.state.threadId) }
+  } else {
+    window.history.back()
+  }
 }
 
 function setUpData(data) {
@@ -128,11 +132,15 @@ function route(searchParams) {
   if (urlSearchParams.get("article")) {
     var articleId = urlSearchParams.get("article")
     views.article(articleId);
-    window.history.pushState({articleId: articleId}, 'article' + articleId, '?article=' + articleId)
+    if (history.state.articleId && history.state.articleId === articleId) {
+      window.history.pushState({articleId: articleId}, 'article' + articleId, '?article=' + articleId)
+    }
   } else if (urlSearchParams.get("thread")) {
     var threadId = urlSearchParams.get("thread")
     views.thread(threadId)
-    window.history.pushState({threadId: threadId}, 'thread' + threadId, '?thread=' + threadId)
+    if (history.state.threadId && history.state.threadId === threadId) {
+      window.history.pushState({threadId: threadId}, 'thread' + threadId, '?thread=' + threadId)
+    }
   } else {
     views.index()
     window.history.pushState({index: true}, 'root', '/')
