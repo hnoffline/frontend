@@ -124,7 +124,7 @@ var request = new XMLHttpRequest();
 request.open('GET', 'https://api.hnoffline.com/top_stories', true);
 request.onload = function() {
   if (request.status >= 200 && request.status < 400) {
-    var threads = JSON.parse(request.responseText);
+    var threads = JSON.parse(request.responseText)["threads"];
 
     // set index view function with this data already saved into it, so no need to save this into global variable
     // actually, this does have to be saved into localStorage, for if everything is loaded from cache due to a recent fetch from the server.
