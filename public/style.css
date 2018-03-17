@@ -22,7 +22,6 @@ body {
 }
 h1#site-title {
   color: white;
-  font-family: monospace;
   cursor: pointer;
   margin-left: 1rem;
   display: inline-block;
@@ -130,7 +129,12 @@ h1#site-title {
 .comment .comment-html p {
   margin-top: 0.5rem;
 }
-
+.comment .comment-html i {
+  font-style: italic;
+}
+.comment .comment-html pre code {
+  font-family: monospace;
+}
 
 /* ARTICLE VIEW */
 
