@@ -112,6 +112,23 @@ function setUpLinks() {
       views.article(articleId);
       window.history.pushState({articleId: articleId}, 'article' + articleId, '?article=' + articleId)
     }
+
+
+    if (e.target.className === 'comment-toggle') {
+      e.preventDefault()
+      e.stopPropagation()
+
+      var parentComment = e.target.parentElement.parentElement
+      if (parentComment.className === 'comment kids-shown') {
+        if (!e.target.getAttribute('data-kids-count')) {
+          var hiddenCount = parentComment.querySelectorAll('.comment').length + 1
+          e.target.setAttribute('data-kids-count', hiddenCount)
+        }
+        parentComment.className = 'comment kids-hidden'
+      } else if (parentComment.className === 'comment kids-hidden') {
+        parentComment.className = 'comment kids-shown'
+      }
+    }
   })
 }
 

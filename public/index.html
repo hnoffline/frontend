@@ -59,21 +59,18 @@
           <h2 id="thread-title">{{title}}</h2>
           <a href='#' id="read-link" data-article-id="{{id}}" >Read cached article</a>
         </header>
-        <div id="item-{{id}}-kids">
+        <div class='comments' id="item-{{id}}-kids">
         </div>
       </div>
     </script>
 
     <script id="comment-template" type="text/x-handlebars-template">
-      <div class="comment">
-        <div class='comment-details'>{{author}} {{time}}</div>
-        <a href="#" class="title" data-thread-id="{{id}}">
-          {{title}}
-        </a>
+      <div class="comment kids-shown">
+        <div class='comment-details'>{{author}} {{time}} <span class='comment-toggle'></span></div>
         <div class='comment-html'>
           {{{commentHtml}}}
         </div>
-        <div id="item-{{id}}-kids">
+        <div class='comment-kids' id="item-{{id}}-kids">
         </div>
       </div>
     </script>
@@ -88,7 +85,6 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'UA-115926412-1');
     </script>
   </body>

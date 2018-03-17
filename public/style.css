@@ -114,10 +114,15 @@ h1#site-title {
   font-size: 0.85rem;
 }
 
+
+
+
+/* COMMENT */
+
 .comment {
   padding-left: 1rem;
 }
-.comment:first-child {
+.comments > .comment {
   padding: 0;
 }
 .comment .comment-details {
@@ -141,6 +146,16 @@ h1#site-title {
   margin-top: 0.5rem;
   font-family: monospace;
 }
+
+.comment.kids-shown .comment-toggle::before {
+  content: '[-]'
+}
+
+.comment.kids-hidden .comment-toggle::before {
+  content: '[+' attr(data-kids-count) "]";
+}
+.comment.kids-hidden .comment-kids { display: none; }
+.comment.kids-hidden .comment-html { display: none; }
 
 
 
