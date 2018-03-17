@@ -175,7 +175,7 @@ function route(searchParams) {
   }
 }
 
-var request = new XMLHttpRequest();
+request = new XMLHttpRequest();
 request.open('GET', 'https://api.hnoffline.com/top_stories', true);
 request.onload = function() {
   if (request.status >= 200 && request.status < 400) {
@@ -194,4 +194,3 @@ request.addEventListener("progress", function(e) {
     progressBar.setAttribute('value', e.loaded)
   }
 })
-request.send();
