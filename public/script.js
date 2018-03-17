@@ -9,7 +9,13 @@ var templates = {
   comment: Handlebars.compile(document.getElementById("comment-template").innerHTML)
 }
 
-function view(v) { return function(threadId) { helpers.clearContentDiv(); v(threadId) } }
+function view(v) {
+  return function(threadId) {
+    helpers.clearContentDiv()
+    v(threadId)
+    scroll(0,0)
+  }
+}
 var views = {
   index: view(function() {
     threadOrder.forEach(function (id) {
@@ -87,6 +93,7 @@ function setUpLinks() {
     if (e.target.id === 'site-title') {
       e.preventDefault()
       e.stopPropagation()
+      views.index()
       window.history.pushState({index: true}, 'root', '/')
     }
 
