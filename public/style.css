@@ -136,10 +136,7 @@ h1#site-title {
   margin-top: 0.5rem;
   font-family: monospace;
 }
-.comment .comment-html img {
-  margin-top: 0.5rem;
-  max-width: 100%;
-}
+
 
 
 /* ARTICLE VIEW */
@@ -155,7 +152,11 @@ h2#article-title {
   color: #555;
 }
 #article-html p {
-  margin-top: 1rem;
+  margin-top: 0.5rem;
+}
+#article-html img {
+  margin-top: 0.5rem;
+  max-width: 100%;
 }
 #article-header {
   margin-bottom: 2rem;
