@@ -114,6 +114,14 @@ h1#site-title {
   font-size: 0.85rem;
 }
 
+#original-link {
+  background-color: gray;
+  text-decoration: none;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 1rem;
+  font-size: 0.85rem;
+}
 
 
 

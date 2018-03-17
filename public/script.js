@@ -30,7 +30,7 @@ var views = {
   thread: view(function(threadId) {
     thread = JSON.parse(localStorage.getItem(threadId))
     if (thread !== null) {
-      rendered = templates.thread({title: thread.title, id: thread.id});
+      rendered = templates.thread({title: thread.title, id: thread.id, url: thread.url});
       contentDiv.insertAdjacentHTML('beforeend', rendered);
     }
     helpers.renderKids(thread)
@@ -39,7 +39,7 @@ var views = {
   article: view(function(threadId) {
     thread = JSON.parse(localStorage.getItem(threadId))
     if (thread !== null) {
-      rendered = templates.article({title: thread.title, articleHtml: thread.summary, id: thread.id});
+      rendered = templates.article({title: thread.title, articleHtml: thread.summary, id: thread.id, url: thread.url});
       contentDiv.insertAdjacentHTML('beforeend', rendered);
     }
   })
