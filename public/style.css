@@ -152,6 +152,11 @@ h2#article-title {
 }
 
 
-
-
-
+#progress-info {
+  font-style: italic;
+  padding-top: 1rem;
+  text-align: center;
+}
+#progress-bar {
+  padding-bottom: 3rem;
+}

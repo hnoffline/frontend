@@ -1,4 +1,5 @@
 var contentDiv = document.getElementById('content');
+var progressBar = document.getElementById('progress-bar');
 
 var templates = {
   post: Handlebars.compile(document.getElementById("post-template").innerHTML),
@@ -134,8 +135,10 @@ request.onload = function() {
     window.history.pushState({index: true}, 'root', '/')
   }
 };
+request.addEventListener("progress", function(e) {
+  if (e.lengthComputable) {
+    progressBar.setAttribute('max', e.total)
+    progressBar.setAttribute('value', e.loaded)
+  }
+})
 request.send();
-
-
-
-

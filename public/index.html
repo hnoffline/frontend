@@ -22,7 +22,12 @@
       </div>
     </div>
 
-    <div id="content" class='container'></div>
+    <div id="content" class='container'>
+      <div id='progress-info'>
+        <p>Caching top 30 posts and articles...</p>
+        <progress id="progress-bar" value="0" max="100"><progress>
+      </div>
+    </div>
 
     <script id="post-template" type="text/x-handlebars-template">
       <div class="post">
@@ -72,6 +77,7 @@
         </div>
       </div>
     </script>
+
 
     <script src='handlebars.min.js'></script>
     <script src='script.js'></script>
