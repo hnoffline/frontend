@@ -3,14 +3,31 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>Tests</title>
+  <title>HN Offline frontend</title>
   <link rel="stylesheet" href="qunit-2.5.1.css">
 </head>
 <body>
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
   <script src="qunit-2.5.1.js"></script>
+  <script src="../public/handlebars.min.js"></script>
   <script>
+    // Need to load HTML before running test
+    QUnit.config.autostart = false
+
+    var htmlReq = new XMLHttpRequest()
+    // htmlReq.open('GET', '../public/index.html', true);
+    htmlReq.open('GET', '../firebase.json', true);
+    htmlReq.onload = function() {
+      console.log(document.getElementById('qunit-fixture'))
+    //  .innerHTML = htmlReq.responseText
+      QUnit.start()
+    }
+    htmlReq.send()
+  </script>
+
+  <script>
+    // need to load the fixture data
     QUnit.test("ok test", function(assert) {
       assert.ok(true, "true succeeds")
     })

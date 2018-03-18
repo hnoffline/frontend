@@ -194,3 +194,6 @@ request.addEventListener("progress", function(e) {
     progressBar.setAttribute('value', e.loaded)
   }
 })
+
+
+if (window.location.host === 'localhost:8000' || window.location.host === 'hnoffline.com') { request.send() }
