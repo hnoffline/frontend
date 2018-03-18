@@ -88,8 +88,8 @@ var helpers = {
 
 
 // these should be generated from a single function
-function setUpLinks(eventName) {
-  document.addEventListener(eventName, function(e) {
+function setUpLinks() {
+  document.addEventListener('click', function(e) {
     if (e.target.id === 'site-title') {
       e.preventDefault()
       e.stopPropagation()
@@ -182,8 +182,7 @@ request.onload = function() {
     var response = JSON.parse(request.responseText)
     var threads = response["threads"]
     threadOrder = threads.map(function(thread) {return thread.id})
-    setUpLinks('click')
-    setUpLinks('touchstart')
+    setUpLinks()
     setUpData(threads);
     helpers.renderCachedAt(response["parsed_at"])
     route(location.search);
