@@ -1,5 +1,6 @@
 {
   "projects": {
-    "production": "hn-offline-1088d"
+    "production": "hn-offline-1088d",
+    "staging": "hn-offline-staging"
   }
 }
