@@ -150,7 +150,10 @@ function setUpData(data) {
 }
 
 
+
+// Route based on URL when site is initially loaded.
 function route(searchParams) {
+  // Fallback for browsers that don't support URLSearchParams.
   if (!window.URLSearchParams) {
     views.index()
     window.history.pushState({index: true}, 'root', '/')
