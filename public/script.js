@@ -30,7 +30,7 @@ var views = {
   thread: view(function(threadId) {
     thread = JSON.parse(localStorage.getItem(threadId))
     if (thread !== null) {
-      rendered = templates.thread({title: thread.title, id: thread.id, url: thread.url});
+      rendered = templates.thread({title: thread.title, id: thread.id, url: thread.url, text: thread.text});
       contentDiv.insertAdjacentHTML('beforeend', rendered);
     }
     helpers.renderKids(thread)

@@ -47,6 +47,38 @@ h1#site-title {
 
 
 
+.rendered-html {
+  word-wrap: break-word;
+  font-size: 0.95rem;
+  padding-bottom: 0.5rem;
+}
+.rendered-html p, .rendered-html ul {
+  margin-top: 0.5rem;
+}
+.rendered-html pre {
+  white-space: pre-wrap;
+  margin-top: 0.5rem;
+  word-wrap: break-word;
+  font-family: monospace;
+}
+.rendered-html pre code {
+  margin-top: 0.5rem;
+  font-family: monospace;
+}
+.rendered-html li {
+  margin-left: 1rem;
+  list-style: disc;
+  margin-top: 0.25rem;
+}
+.rendered-html img {
+  margin-top: 0.5rem;
+  max-width: 100%;
+}
+.rendered-html i, .rendered-html em {
+  font-style: italic;
+}
+
+
 
 .post {
   padding: 1rem;
@@ -99,9 +131,14 @@ h1#site-title {
   color: #555;
   margin-bottom: 1rem;
 }
-
 #thread-header {
   margin-bottom: 2rem;
+}
+.thread-op-text {
+  color: #aaa;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
 }
 
 
@@ -139,21 +176,6 @@ h1#site-title {
   color: #777;
   font-size: 0.85rem;
 }
-.comment .comment-html {
-  font-size: 0.95rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid #f2f3f5;
-}
-.comment .comment-html p {
-  margin-top: 0.5rem;
-}
-.comment .comment-html i {
-  font-style: italic;
-}
-.comment .comment-html pre code {
-  margin-top: 0.5rem;
-  font-family: monospace;
-}
 
 .comment-toggle:hover {
   text-decoration: underline;
@@ -183,30 +205,8 @@ h2#article-title {
   font-weight: 700;
   color: #555;
 }
-#article-html {
-  word-wrap: break-word;
-}
-#article-html pre {
-  white-space: pre-wrap;
-  margin-top: 0.5rem;
-  word-wrap: break-word;
-  font-family: monospace;
-}
-#article-html p {
-  margin-top: 0.5rem;
-}
-#article-html img {
-  margin-top: 0.5rem;
-  max-width: 100%;
-}
-#article-html ul {
-  margin-top: 0.5rem;
-}
-#article-html li {
-  margin-left: 1rem;
-  list-style: disc;
-  margin-top: 0.25rem;
-}
+
+
 #article-header {
   margin-bottom: 2rem;
 }

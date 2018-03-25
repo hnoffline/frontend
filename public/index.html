@@ -48,7 +48,8 @@
           <a href="#" id="read-link" data-thread-id="{{id}}">Read cached comments</a>
           <a href="{{url}}" id="original-link" target="_blank">Read live article ↗</a>
         </header>
-        <div id="article-html">
+
+        <div class="rendered-html">
           {{{articleHtml}}}
         </div>
       </div>
@@ -58,9 +59,17 @@
       <div id="thread">
         <header id="thread-header">
           <h2 id="thread-title">{{title}}</h2>
+          {{#if url}}
           <a href='#' id="read-link" data-article-id="{{id}}" >Read cached article</a>
           <a href="{{url}}" id="original-link" target="_blank">Read live article ↗</a>
+          {{/if}}
         </header>
+
+        {{#if text}}
+          <div class='rendered-html thread-op-text'>
+            {{{text}}}
+          </div>
+        {{/if}}
         <div class='comments' id="item-{{id}}-kids">
         </div>
       </div>
@@ -69,7 +78,7 @@
     <script id="comment-template" type="text/x-handlebars-template">
       <div class="comment kids-shown">
         <div class='comment-details'>{{author}} {{time}} <a class='comment-toggle'></a></div>
-        <div class='comment-html'>
+        <div class='rendered-html'>
           {{{commentHtml}}}
         </div>
         <div class='comment-kids' id="item-{{id}}-kids">
