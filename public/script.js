@@ -1,50 +1,50 @@
-var contentDiv = document.getElementById('content');
-var progressBar = document.getElementById('progress-bar');
-var cachedAt = document.getElementById('cached-at');
+var contentDiv = document.getElementById('content')
+var progressBar = document.getElementById('progress-bar')
+var cachedAt = document.getElementById('cached-at')
 
 var templates = {
-  post: Handlebars.compile(document.getElementById("post-template").innerHTML),
-  article: Handlebars.compile(document.getElementById("article-template").innerHTML),
-  thread: Handlebars.compile(document.getElementById("thread-template").innerHTML),
-  comment: Handlebars.compile(document.getElementById("comment-template").innerHTML)
+  post: Handlebars.compile(document.getElementById('post-template').innerHTML),
+  article: Handlebars.compile(document.getElementById('article-template').innerHTML),
+  thread: Handlebars.compile(document.getElementById('thread-template').innerHTML),
+  comment: Handlebars.compile(document.getElementById('comment-template').innerHTML)
 }
 
-function view(v) {
-  return function(threadId) {
+function view (v) {
+  return function (threadId) {
     helpers.clearContentDiv()
     v(threadId)
-    scroll(0,0)
+    scroll(0, 0)
   }
 }
 var views = {
-  index: view(function() {
+  index: view(function () {
     threadOrder.forEach(function (id) {
       thread = JSON.parse(localStorage.getItem(id))
       if (thread !== null) {
-        rendered = templates.post({title: thread.title, author: thread.by, time: helpers.timeAgo(thread.time), id: thread.id, commentsCount: thread.descendants});
-        contentDiv.insertAdjacentHTML('beforeend', rendered);
+        rendered = templates.post({title: thread.title, author: thread.by, time: helpers.timeAgo(thread.time), id: thread.id, commentsCount: thread.descendants})
+        contentDiv.insertAdjacentHTML('beforeend', rendered)
       }
     })
   }),
 
-  thread: view(function(threadId) {
+  thread: view(function (threadId) {
     thread = JSON.parse(localStorage.getItem(threadId))
     if (thread !== null) {
-      rendered = templates.thread({title: thread.title, id: thread.id, url: thread.url, text: thread.text});
-      contentDiv.insertAdjacentHTML('beforeend', rendered);
+      rendered = templates.thread({title: thread.title, id: thread.id, url: thread.url, text: thread.text})
+      contentDiv.insertAdjacentHTML('beforeend', rendered)
     }
     helpers.renderKids(thread)
   }),
 
-  article: view(function(threadId) {
+  article: view(function (threadId) {
     thread = JSON.parse(localStorage.getItem(threadId))
     if (thread !== null) {
-      rendered = templates.article({title: thread.title, articleHtml: thread.summary, id: thread.id, url: thread.url});
-      contentDiv.insertAdjacentHTML('beforeend', rendered);
+      rendered = templates.article({title: thread.title, articleHtml: thread.summary, id: thread.id, url: thread.url})
+      contentDiv.insertAdjacentHTML('beforeend', rendered)
     }
   }),
 
-  routeTo: function(viewName, id) {
+  routeTo: function (viewName, id) {
     if (viewName === 'index') {
       views.index()
       window.history.pushState({index: true}, 'root', '/')
@@ -52,7 +52,7 @@ var views = {
       views.thread(id)
       window.history.pushState({threadId: id}, 'thread' + id, '?thread=' + id)
     } else if (viewName === '') {
-      views.article(id);
+      views.article(id)
       window.history.pushState({articleId: id}, 'article' + id, '?article=' + id)
     }
   }
@@ -60,12 +60,12 @@ var views = {
 
 var helpers = {
   clearContentDiv: function () {
-    var contentDiv = document.getElementById('content');
+    var contentDiv = document.getElementById('content')
     while (contentDiv.firstChild) {
-      contentDiv.removeChild(contentDiv.firstChild);
+      contentDiv.removeChild(contentDiv.firstChild)
     }
   },
-  timeAgo: function(timestamp) {
+  timeAgo: function (timestamp) {
     var seconds = Math.floor((new Date().getTime() - timestamp * 1000) / 1000)
     var minutes = Math.floor(seconds / 60)
     var hours = Math.floor(minutes / 60)
@@ -73,32 +73,31 @@ var helpers = {
     var years = Math.floor(days / 365)
 
     if (years) {
-      return years + " years ago"
+      return years + ' years ago'
     } else if (days) {
-      return days + " days ago"
+      return days + ' days ago'
     } else if (hours) {
-      return hours + " hours ago"
+      return hours + ' hours ago'
     } else if (minutes) {
-      return minutes + " minutes ago"
+      return minutes + ' minutes ago'
     } else if (seconds) {
-      return seconds + " seconds ago"
+      return seconds + ' seconds ago'
     }
   },
-  renderKids: function(item) {
-    var parentDiv = document.getElementById('item-' + item.id + '-kids');
-    item.kids.forEach(function(kid) {
-      rendered = templates.comment({title: kid.title, commentHtml: kid.text, author: kid.by, time: helpers.timeAgo(kid.time), id: kid.id});
-      parentDiv.insertAdjacentHTML('beforeend', rendered);
+  renderKids: function (item) {
+    var parentDiv = document.getElementById('item-' + item.id + '-kids')
+    item.kids.forEach(function (kid) {
+      rendered = templates.comment({title: kid.title, commentHtml: kid.text, author: kid.by, time: helpers.timeAgo(kid.time), id: kid.id})
+      parentDiv.insertAdjacentHTML('beforeend', rendered)
       if (kid.kids) {
         helpers.renderKids(kid)
       }
     })
   },
-  renderCachedAt: function(timestamp) {
-    cachedAt.innerText = "cached " + helpers.timeAgo(timestamp)
+  renderCachedAt: function (timestamp) {
+    cachedAt.innerText = 'cached ' + helpers.timeAgo(timestamp)
   }
 }
-
 
 // function LinkDestination(identifier) {
 //   this.identifier = identifier
@@ -114,12 +113,9 @@ var helpers = {
 
 // }
 
-
-
-
 // these should be generated from a single function
-function setUpLinks() {
-  document.addEventListener('click', function(e) {
+function setUpLinks () {
+  document.addEventListener('click', function (e) {
     var linkDestination = e.target.getAttribute('data-link-destination')
     if (linkDestination) {
       e.preventDefault()
@@ -145,7 +141,7 @@ function setUpLinks() {
   })
 }
 
-window.onpopstate = function(event) {
+window.onpopstate = function (event) {
   if (event.state) {
     if (event.state.index) { views.index() }
     if (event.state.articleId) { views.article(event.state.articleId) }
@@ -155,17 +151,15 @@ window.onpopstate = function(event) {
   }
 }
 
-function setUpData(data) {
+function setUpData (data) {
   localStorage.clear()
-  data.forEach(function(thread) {
+  data.forEach(function (thread) {
     localStorage.setItem(thread.id, JSON.stringify(thread))
   })
 }
 
-
-
 // Route based on URL when site is initially loaded.
-function route(searchParams) {
+function route (searchParams) {
   // Fallback for browsers that don't support URLSearchParams.
   if (!window.URLSearchParams) {
     views.index()
@@ -173,14 +167,14 @@ function route(searchParams) {
     return
   }
   var urlSearchParams = new URLSearchParams(searchParams)
-  if (urlSearchParams.get("article")) {
-    var articleId = urlSearchParams.get("article")
-    views.article(articleId);
+  if (urlSearchParams.get('article')) {
+    var articleId = urlSearchParams.get('article')
+    views.article(articleId)
     if (history.state.articleId && history.state.articleId === articleId) {
       window.history.pushState({articleId: articleId}, 'article' + articleId, '?article=' + articleId)
     }
-  } else if (urlSearchParams.get("thread")) {
-    var threadId = urlSearchParams.get("thread")
+  } else if (urlSearchParams.get('thread')) {
+    var threadId = urlSearchParams.get('thread')
     views.thread(threadId)
     if (history.state.threadId && history.state.threadId === threadId) {
       window.history.pushState({threadId: threadId}, 'thread' + threadId, '?thread=' + threadId)
@@ -191,24 +185,23 @@ function route(searchParams) {
   }
 }
 
-
-var request = new XMLHttpRequest();
-request.open('GET', 'https://api.hnoffline.com/top_stories', true);
-request.onload = function() {
+var request = new XMLHttpRequest()
+request.open('GET', 'https://api.hnoffline.com/top_stories', true)
+request.onload = function () {
   if (request.status >= 200 && request.status < 400) {
     var response = JSON.parse(request.responseText)
-    var threads = response["threads"]
-    threadOrder = threads.map(function(thread) {return thread.id})
+    var threads = response['threads']
+    threadOrder = threads.map(function (thread) { return thread.id })
     setUpLinks()
-    setUpData(threads);
-    helpers.renderCachedAt(response["parsed_at"])
-    route(location.search);
+    setUpData(threads)
+    helpers.renderCachedAt(response['parsed_at'])
+    route(location.search)
   }
-};
-request.addEventListener("progress", function(e) {
+}
+request.addEventListener('progress', function (e) {
   if (e.lengthComputable) {
     progressBar.setAttribute('max', e.total)
     progressBar.setAttribute('value', e.loaded)
   }
 })
-request.send();
+request.send()
