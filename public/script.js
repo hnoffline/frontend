@@ -21,7 +21,7 @@ var views = {
     threadOrder.forEach(function (id) {
       thread = JSON.parse(localStorage.getItem(id))
       if (thread !== null) {
-        rendered = templates.post({title: thread.title, author: thread.by, time: helpers.timeAgo(thread.time), id: thread.id, commentsCount: thread.descendants})
+        rendered = templates.post({title: thread.title, author: thread.by, time: helpers.timeAgo(thread.time), id: thread.id, commentsCount: thread.descendants, url: thread.url})
         contentDiv.insertAdjacentHTML('beforeend', rendered)
       }
     })

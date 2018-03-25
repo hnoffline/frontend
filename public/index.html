@@ -32,7 +32,11 @@
       <div class="post">
         <div class="post-number"></div>
         <div class="post-content">
-          <a href="#" class="title" data-link-destination="article:{{id}}">
+          {{#if url}}
+            <a href="#" class="title" data-link-destination="article:{{id}}">
+          {{else}}
+            <a href="#" class="title" data-link-destination="thread:{{id}}">
+          {{/if}}
             {{title}}
           </a>
           <div class='post-details'>{{author}} {{time}} | <a class='comments-count' href='#' data-link-destination="thread:{{id}}">{{commentsCount}} comments</a></div>
