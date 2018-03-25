@@ -42,7 +42,20 @@ var views = {
       rendered = templates.article({title: thread.title, articleHtml: thread.summary, id: thread.id, url: thread.url});
       contentDiv.insertAdjacentHTML('beforeend', rendered);
     }
-  })
+  }),
+
+  routeTo: function(viewName, id) {
+    if (viewName === 'index') {
+      views.index()
+      window.history.pushState({index: true}, 'root', '/')
+    } else if (viewName === '') {
+      views.thread(id)
+      window.history.pushState({threadId: id}, 'thread' + id, '?thread=' + id)
+    } else if (viewName === '') {
+      views.article(id);
+      window.history.pushState({articleId: id}, 'article' + id, '?article=' + id)
+    }
+  }
 }
 
 var helpers = {
@@ -87,32 +100,32 @@ var helpers = {
 }
 
 
+// function LinkDestination(identifier) {
+//   this.identifier = identifier
+//   this.isIndex = function() {
+//     return this.identifier === 'index'
+//   }
+//   this.articleId = function() {
+
+//   }
+//   this.isArticle = function() {
+
+//   }
+
+// }
+
+
+
+
 // these should be generated from a single function
 function setUpLinks() {
   document.addEventListener('click', function(e) {
-    if (e.target.id === 'site-title') {
+    var linkDestination = e.target.getAttribute('data-link-destination')
+    if (linkDestination) {
       e.preventDefault()
       e.stopPropagation()
-      views.index()
-      window.history.pushState({index: true}, 'root', '/')
+      views.routeTo(linkDestination.split(':')[0], linkDestination.split(':')[1])
     }
-
-    var threadId = e.target.getAttribute('data-thread-id')
-    if (threadId) {
-      e.preventDefault()
-      e.stopPropagation()
-      views.thread(threadId)
-      window.history.pushState({threadId: threadId}, 'thread' + threadId, '?thread=' + threadId)
-    }
-
-    var articleId = e.target.getAttribute('data-article-id')
-    if (articleId) {
-      e.preventDefault()
-      e.stopPropagation()
-      views.article(articleId);
-      window.history.pushState({articleId: articleId}, 'article' + articleId, '?article=' + articleId)
-    }
-
 
     if (e.target.className === 'comment-toggle') {
       e.preventDefault()
@@ -177,6 +190,7 @@ function route(searchParams) {
     window.history.pushState({index: true}, 'root', '/')
   }
 }
+
 
 var request = new XMLHttpRequest();
 request.open('GET', 'https://api.hnoffline.com/top_stories', true);

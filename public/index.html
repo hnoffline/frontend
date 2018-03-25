@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang='en'>
-  <head>
-    <title>HN Offline</title>
+  <head> <title>HN Offline</title>
     <link rel='stylesheet' href='reset.css'>
     <link rel='stylesheet' href='style.css'>
     <meta charset='utf-8'>
@@ -18,7 +17,7 @@
           </svg>
         </a>
 
-        <h1 id='site-title'>HN Offline<span id="cached-at"></span></h1>
+        <h1 id='site-title' data-link-destination="index">HN Offline<span id="cached-at"></span></h1>
       </div>
     </div>
 
@@ -33,10 +32,10 @@
       <div class="post">
         <div class="post-number"></div>
         <div class="post-content">
-          <a href="#" class="title" data-article-id="{{id}}">
+          <a href="#" class="title" data-link-destination="article:{{id}}">
             {{title}}
           </a>
-          <div class='post-details'>{{author}} {{time}} | <a class='comments-count' href='#' data-thread-id="{{id}}">{{commentsCount}} comments</a></div>
+          <div class='post-details'>{{author}} {{time}} | <a class='comments-count' href='#' data-link-destination="thread:{{id}}">{{commentsCount}} comments</a></div>
         </div>
       </div>
     </script>
@@ -45,7 +44,7 @@
       <div id="article">
         <header id="article-header">
           <h2 id="article-title">{{title}}</h2>
-          <a href="#" id="read-link" data-thread-id="{{id}}">Read cached comments</a>
+          <a href="#" id="read-link" data-link-destination="thread:{{id}}">Read cached comments</a>
           <a href="{{url}}" id="original-link" target="_blank">Read live article ↗</a>
         </header>
 
@@ -60,7 +59,7 @@
         <header id="thread-header">
           <h2 id="thread-title">{{title}}</h2>
           {{#if url}}
-            <a href='#' id="read-link" data-article-id="{{id}}" >Read cached article</a>
+            <a href='#' id="read-link" data-link-destination="article:{{id}}">Read cached article</a>
             <a href="{{url}}" id="original-link" target="_blank">Read live article ↗</a>
           {{/if}}
         </header>
