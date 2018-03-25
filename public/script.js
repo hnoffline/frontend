@@ -48,15 +48,16 @@ var views = {
     if (viewName === 'index') {
       views.index()
       window.history.pushState({index: true}, 'root', '/')
-    } else if (viewName === '') {
+    } else if (viewName === 'thread') {
       views.thread(id)
       window.history.pushState({threadId: id}, 'thread' + id, '?thread=' + id)
-    } else if (viewName === '') {
+    } else if (viewName === 'article') {
       views.article(id)
       window.history.pushState({articleId: id}, 'article' + id, '?article=' + id)
     }
   }
 }
+
 
 var helpers = {
   clearContentDiv: function () {
@@ -99,19 +100,23 @@ var helpers = {
   }
 }
 
-// function LinkDestination(identifier) {
-//   this.identifier = identifier
-//   this.isIndex = function() {
-//     return this.identifier === 'index'
-//   }
-//   this.articleId = function() {
+window.onpopstate = function (event) {
+  if (event.state) {
+    if (event.state.index) { views.index() }
+    if (event.state.articleId) { views.article(event.state.articleId) }
+    if (event.state.threadId) { views.thread(event.state.threadId) }
+  } else {
+    window.history.back()
+  }
+}
 
-//   }
-//   this.isArticle = function() {
+function setUpData (data) {
+  localStorage.clear()
+  data.forEach(function (thread) {
+    localStorage.setItem(thread.id, JSON.stringify(thread))
+  })
+}
 
-//   }
-
-// }
 
 // these should be generated from a single function
 function setUpLinks () {
@@ -141,23 +146,6 @@ function setUpLinks () {
   })
 }
 
-window.onpopstate = function (event) {
-  if (event.state) {
-    if (event.state.index) { views.index() }
-    if (event.state.articleId) { views.article(event.state.articleId) }
-    if (event.state.threadId) { views.thread(event.state.threadId) }
-  } else {
-    window.history.back()
-  }
-}
-
-function setUpData (data) {
-  localStorage.clear()
-  data.forEach(function (thread) {
-    localStorage.setItem(thread.id, JSON.stringify(thread))
-  })
-}
-
 // Route based on URL when site is initially loaded.
 function route (searchParams) {
   // Fallback for browsers that don't support URLSearchParams.
@@ -181,7 +169,7 @@ function route (searchParams) {
     }
   } else {
     views.index()
-    window.history.pushState({index: true}, 'root', '/')
+    window.history.pushState({index: true}, 'root', '')
   }
 }
 
