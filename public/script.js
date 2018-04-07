@@ -128,23 +128,31 @@ function setUpLinks () {
       views.routeTo(linkDestination.split(':')[0], linkDestination.split(':')[1])
     }
 
-    if (e.target.className === 'comment-toggle') {
-      e.preventDefault()
-      e.stopPropagation()
-
-      var parentComment = e.target.parentElement.parentElement
-      if (parentComment.className === 'comment kids-shown') {
-        if (!e.target.getAttribute('data-kids-count')) {
-          var hiddenCount = parentComment.querySelectorAll('.comment').length + 1
-          e.target.setAttribute('data-kids-count', hiddenCount)
-        }
-        parentComment.className = 'comment kids-hidden'
-      } else if (parentComment.className === 'comment kids-hidden') {
-        parentComment.className = 'comment kids-shown'
-      }
-    }
+    if (e.target.className === 'comment-toggle') { toggleSubthread(e) }
   })
 }
+
+
+
+function toggleSubthread(e) {
+  e.preventDefault()
+  e.stopPropagation()
+
+  var parentComment = e.target.parentElement.parentElement
+
+  if (parentComment.className === 'comment kids-shown') {
+    if (!e.target.getAttribute('data-kids-count')) {
+      var hiddenCount = parentComment.querySelectorAll('.comment').length + 1
+      e.target.setAttribute('data-kids-count', hiddenCount)
+    }
+    parentComment.className = 'comment kids-hidden'
+  } else if (parentComment.className === 'comment kids-hidden') {
+    parentComment.className = 'comment kids-shown'
+  }
+}
+
+
+
 
 // Route based on URL when site is initially loaded.
 function route (searchParams) {
@@ -172,6 +180,7 @@ function route (searchParams) {
     window.history.pushState({index: true}, 'root', '')
   }
 }
+
 
 var request = new XMLHttpRequest()
 request.open('GET', 'https://api.hnoffline.com/top_stories', true)

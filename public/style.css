@@ -189,7 +189,7 @@ h1#site-title {
   content: '[+' attr(data-kids-count) "]";
 }
 .comment.kids-hidden .comment-kids { display: none; }
-.comment.kids-hidden .comment-html { display: none; }
+.comment.kids-hidden .rendered-html { display: none; }
 
 
 
