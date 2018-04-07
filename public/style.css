@@ -9,7 +9,6 @@ body {
   counter-reset: post-number-counter;
   line-height: 1.15rem;
 }
-
 .container {
   max-width: 40rem;
   margin: 0 auto;
