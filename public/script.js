@@ -88,10 +88,12 @@ var helpers = {
   renderKids: function (item) {
     var parentDiv = document.getElementById('item-' + item.id + '-kids')
     item.kids.forEach(function (kid) {
-      rendered = templates.comment({title: kid.title, commentHtml: kid.text, author: kid.by, time: helpers.timeAgo(kid.time), id: kid.id})
-      parentDiv.insertAdjacentHTML('beforeend', rendered)
-      if (kid.kids) {
-        helpers.renderKids(kid)
+      if (kid.text) {
+        rendered = templates.comment({title: kid.title, commentHtml: kid.text, author: kid.by, time: helpers.timeAgo(kid.time), id: kid.id})
+        parentDiv.insertAdjacentHTML('beforeend', rendered)
+        if (kid.kids) {
+          helpers.renderKids(kid)
+        }
       }
     })
   },
