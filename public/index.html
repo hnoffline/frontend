@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang='en'>
-  <head>
-    <title>HN Offline</title>
+  <head> <title>HN Offline</title>
     <link rel='stylesheet' href='reset.css'>
     <link rel='stylesheet' href='style.css'>
     <meta charset='utf-8'>
@@ -18,7 +17,7 @@
           </svg>
         </a>
 
-        <h1 id='site-title'>HN Offline<span id="cached-at"></span></h1>
+        <h1 id='site-title' data-link-destination="index">HN Offline<span id="cached-at"></span></h1>
       </div>
     </div>
 
@@ -33,10 +32,14 @@
       <div class="post">
         <div class="post-number"></div>
         <div class="post-content">
-          <a href="#" class="title" data-article-id="{{id}}">
+          {{#if url}}
+            <a href="#" class="title" data-link-destination="article:{{id}}">
+          {{else}}
+            <a href="#" class="title" data-link-destination="thread:{{id}}">
+          {{/if}}
             {{title}}
           </a>
-          <div class='post-details'>{{author}} {{time}} | <a class='comments-count' href='#' data-thread-id="{{id}}">{{commentsCount}} comments</a></div>
+          <div class='post-details'>{{author}} {{time}} | <a class='comments-count' href='#' data-link-destination="thread:{{id}}">{{commentsCount}} comments</a></div>
         </div>
       </div>
     </script>
@@ -45,10 +48,11 @@
       <div id="article">
         <header id="article-header">
           <h2 id="article-title">{{title}}</h2>
-          <a href="#" id="read-link" data-thread-id="{{id}}">Read cached comments</a>
+          <a href="#" id="read-link" data-link-destination="thread:{{id}}">Read cached comments</a>
           <a href="{{url}}" id="original-link" target="_blank">Read live article ↗</a>
         </header>
-        <div id="article-html">
+
+        <div class="rendered-html">
           {{{articleHtml}}}
         </div>
       </div>
@@ -58,9 +62,17 @@
       <div id="thread">
         <header id="thread-header">
           <h2 id="thread-title">{{title}}</h2>
-          <a href='#' id="read-link" data-article-id="{{id}}" >Read cached article</a>
-          <a href="{{url}}" id="original-link" target="_blank">Read live article ↗</a>
+          {{#if url}}
+            <a href='#' id="read-link" data-link-destination="article:{{id}}">Read cached article</a>
+            <a href="{{url}}" id="original-link" target="_blank">Read live article ↗</a>
+          {{/if}}
         </header>
+
+        {{#if text}}
+          <div class='rendered-html thread-op-text'>
+            {{{text}}}
+          </div>
+        {{/if}}
         <div class='comments' id="item-{{id}}-kids">
         </div>
       </div>
@@ -68,8 +80,8 @@
 
     <script id="comment-template" type="text/x-handlebars-template">
       <div class="comment kids-shown">
-        <div class='comment-details'>{{author}} {{time}} <span class='comment-toggle'></span></div>
-        <div class='comment-html'>
+        <div class='comment-details'>{{author}} {{time}} <a class='comment-toggle'></a></div>
+        <div class='rendered-html'>
           {{{commentHtml}}}
         </div>
         <div class='comment-kids' id="item-{{id}}-kids">
@@ -80,6 +92,7 @@
 
     <script src='handlebars.min.js'></script>
     <script src='script.js'></script>
+
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115926412-1"></script>
