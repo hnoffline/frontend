@@ -135,7 +135,6 @@ function setUpLinks () {
 
 
 function toggleSubthread(e) {
-  e.preventDefault()
   e.stopPropagation()
 
   var parentComment = e.target.parentElement.parentElement
