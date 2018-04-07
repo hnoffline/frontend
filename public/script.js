@@ -15,6 +15,7 @@ function view (v) {
     v(threadId)
     scroll(0, 0)
     helpers.makeAllExternalLinksOpenInNewWindow()
+
   }
 }
 var views = {
@@ -205,12 +206,7 @@ request.open('GET', 'https://api.hnoffline.com/top_stories', true)
 request.onload = function () {
   if (request.status >= 200 && request.status < 400) {
     var response = JSON.parse(request.responseText)
-    var threads = response['threads']
-    threadOrder = threads.map(function (thread) { return thread.id })
-    setUpLinks()
-    setUpData(threads)
-    helpers.renderCachedAt(response['parsed_at'])
-    route(location.search)
+    processResponse(response)
   }
 }
 request.addEventListener('progress', function (e) {
@@ -220,4 +216,15 @@ request.addEventListener('progress', function (e) {
   }
 })
 
+function processResponse(response) {
+  var threads = response['threads']
+  threadOrder = threads.map(function (thread) { return thread.id })
+  setUpLinks()
+  setUpData(threads)
+  helpers.renderCachedAt(response['parsed_at'])
+  route(location.search)
+}
+
 if (window.location.host === 'localhost:8000' || window.location.host === 'hnoffline.com' || window.location.host === 'firebaseapp.com') { request.send() }
+
+
