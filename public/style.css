@@ -11,7 +11,13 @@ body {
   font-weight: 300;
 }
 
+a {
+  color: #FF8C09;
+}
 
+.comment-toggle {
+  color: #888;
+}
 
 
 
@@ -58,17 +64,24 @@ h1#site-title {
   padding-bottom: 0.5rem;
 }
 .rendered-html p, .rendered-html ul {
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
 }
 .rendered-html pre {
   white-space: pre-wrap;
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
   word-wrap: break-word;
   font-family: monospace;
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
+  font-size: 0.85rem;
 }
 .rendered-html pre code {
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
   font-family: monospace;
+}
+.rendered-html ul {
+  margin-top: 0.75rem;
 }
 .rendered-html li {
   margin-left: 1rem;
@@ -82,11 +95,15 @@ h1#site-title {
 .rendered-html i, .rendered-html em {
   font-style: italic;
 }
-.rendered-html h1 { font-size: 1.35rem; font-weight: 700 }
-.rendered-html h2 { font-size: 1.25rem; font-weight: 700 }
-.rendered-html h3 { font-size: 1.15rem; font-weight: 700 }
-.rendered-html h4 { font-size: 1.15rem; font-weight: 700 }
-.rendered-html h5 { font-size: 1.15rem; font-weight: 700 }
+.rendered-html pre {
+  background-color: #eee;
+  padding: 0.5rem;
+}
+.rendered-html h1 { font-size: 1.35rem; font-weight: 700; margin: 1em 0 }
+.rendered-html h2 { font-size: 1.25rem; font-weight: 700; margin: 1em 0 }
+.rendered-html h3 { font-size: 1.15rem; font-weight: 700; margin: 1em 0 }
+.rendered-html h4 { font-size: 1.15rem; font-weight: 700; margin: 1em 0 }
+.rendered-html h5 { font-size: 1.15rem; font-weight: 700; margin: 1em 0 }
 
 
 
@@ -100,7 +117,7 @@ h1#site-title {
   text-decoration: none;
 }
 .post .post-details {
-  margin-top: 0.5rem;
+  margin-top: 0.25rem;
   color: #777;
   font-size: 0.85rem;
 }
@@ -206,10 +223,15 @@ h2#article-title, h2#thread-title {
   line-height: 1.25em;
   margin-bottom: 1rem;
   color: #555;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 
 #article-header, #thread-header {
+  margin-top: 1rem;
   margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
 }
 
 
