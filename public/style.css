@@ -7,7 +7,7 @@ body {
   color: #333;
   background-color: #f2f3f5;
   counter-reset: post-number-counter;
-  line-height: 1.3rem;
+  line-height: 1.35rem;
   font-weight: 300;
 }
 
@@ -189,6 +189,10 @@ h1#site-title {
 }
 .comment.kids-hidden .comment-kids { display: none; }
 .comment.kids-hidden .rendered-html { display: none; }
+
+.comment-kids {
+  border-left: 2px solid #eee;
+}
 
 
 
