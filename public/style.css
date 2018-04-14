@@ -99,11 +99,11 @@ h1#site-title {
   background-color: #eee;
   padding: 0.5rem;
 }
-.rendered-html h1 { font-size: 1.35rem; font-weight: 700; margin: 1em 0 }
-.rendered-html h2 { font-size: 1.25rem; font-weight: 700; margin: 1em 0 }
-.rendered-html h3 { font-size: 1.15rem; font-weight: 700; margin: 1em 0 }
-.rendered-html h4 { font-size: 1.15rem; font-weight: 700; margin: 1em 0 }
-.rendered-html h5 { font-size: 1.15rem; font-weight: 700; margin: 1em 0 }
+.rendered-html h1 { font-size: 1.35rem; margin: 1em 0 }
+.rendered-html h2 { font-size: 1.25rem; margin: 1em 0 }
+.rendered-html h3 { font-size: 1.15rem; margin: 1em 0 }
+.rendered-html h4 { font-size: 1.15rem; margin: 1em 0 }
+.rendered-html h5 { font-size: 1.15rem; margin: 1em 0 }
 
 
 
