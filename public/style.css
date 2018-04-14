@@ -7,7 +7,7 @@ body {
   color: #333;
   background-color: #f2f3f5;
   counter-reset: post-number-counter;
-  line-height: 1.15rem;
+  line-height: 1.25rem;
 }
 .container {
   max-width: 40rem;
@@ -125,7 +125,6 @@ h1#site-title {
 }
 #thread-title {
   font-size: 1.5rem;
-  line-height: 1.25em;
   font-weight: 700;
   color: #555;
   margin-bottom: 1rem;
@@ -165,6 +164,7 @@ h1#site-title {
 
 .comment {
   padding-left: 1rem;
+  margin-top: 0.65rem;
 }
 .comments > .comment {
   padding: 0;
@@ -199,7 +199,6 @@ h1#site-title {
 }
 h2#article-title {
   font-size: 1.5rem;
-  line-height: 1.25em;
   margin-bottom: 1rem;
   font-weight: 700;
   color: #555;
