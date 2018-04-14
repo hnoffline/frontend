@@ -75,15 +75,17 @@ var helpers = {
     var years = Math.floor(days / 365)
 
     if (years) {
-      return years + ' years ago'
+      return years === 1 ? years + ' year ago' : years + ' years ago'
     } else if (days) {
-      return days + ' days ago'
+      return days === 1 ? days + ' day ago' : days + ' days ago'
     } else if (hours) {
-      return hours + ' hours ago'
+      return hours === 1 ? hours + ' hour ago' : hours + ' hours ago'
     } else if (minutes) {
-      return minutes + ' minutes ago'
+      return minutes === 1 ? minutes + ' minute ago' : minutes + ' minutes ago'
     } else if (seconds) {
-      return seconds + ' seconds ago'
+      return seconds === 1 ? seconds + ' second ago' : seconds + ' seconds ago'
+    } else {
+      return 'just now'
     }
   },
   renderKids: function (item) {

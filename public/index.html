@@ -48,8 +48,8 @@
       <div id="article">
         <header id="article-header">
           <h2 id="article-title">{{title}}</h2>
-          <a href="#" id="read-link" data-link-destination="thread:{{id}}">Read cached comments</a>
-          <a href="{{url}}" id="original-link" target="_blank">Read live article ↗</a>
+          <div> <a href="#" id="read-link" data-link-destination="thread:{{id}}">Read cached comments</a> </div>
+          <div> <a href="{{url}}" id="original-link" target="_blank">Read live article ↗</a> </div>
         </header>
 
         <div class="rendered-html">
@@ -63,8 +63,10 @@
         <header id="thread-header">
           <h2 id="thread-title">{{title}}</h2>
           {{#if url}}
+            <div>
             <a href='#' id="read-link" data-link-destination="article:{{id}}">Read cached article</a>
-            <a href="{{url}}" id="original-link" target="_blank">Read live article ↗</a>
+            </div>
+            <div> <a href="{{url}}" id="original-link" target="_blank">Read live article ↗</a> </div>
           {{/if}}
         </header>
 
@@ -80,7 +82,7 @@
 
     <script id="comment-template" type="text/x-handlebars-template">
       <div class="comment kids-shown">
-        <div class='comment-details'>{{author}} {{time}} <a class='comment-toggle'></a></div>
+        <div class='comment-details'><span class='comment-author'>{{author}}</span> {{time}} <a class='comment-toggle'></a></div>
         <div class='rendered-html'>
           {{{commentHtml}}}
         </div>
